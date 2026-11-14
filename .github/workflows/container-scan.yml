@@ -1,0 +1,21 @@
+name: container-scan
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: "0 6 * * 1"   # ogni lunedì alle 06:00 UTC
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build image
+        run: docker build -t image:ci . #if Dockerfile is in the root of the repo 
+
+      - name: Install grype
+        run: curl -sSfL https://raw.githubusercontent.com/anchore/grype/main/install.sh | sh -s -- -b /usr/local/bin
+
+      - name: Scan (fail on fixable high+)
+        run: grype myimage:ci --only-fixed --fail-on high
