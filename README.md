@@ -1,4 +1,4 @@
-# Secure Cloud Computing Project - Group 06
+# Secure Cloud Computing Project - Group 04
 
 **Track:** Discriminating healthy subjects from Alzheimer's disease patients
 
